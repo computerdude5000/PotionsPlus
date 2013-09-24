@@ -62,10 +62,10 @@ import org.bukkit.enchantments.*;
 import org.bukkit.potion.*;
 import org.bukkit.*;
 
-import net.minecraft.server.CraftingManager;
+import net.minecraft.server.v1_6_R2.CraftingManager;
 
-import org.bukkit.craftbukkit.enchantments.CraftEnchantment;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R2.enchantments.CraftEnchantment;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftItemStack;
 
 class PotionsPlusListener implements Listener {
     PotionsPlus plugin;
@@ -175,7 +175,7 @@ public class PotionsPlus extends JavaPlugin implements Listener {
             //}
 
             // Build native effects list from config
-            ArrayList<net.minecraft.server.MobEffect> nmsEffectsList = new ArrayList<net.minecraft.server.MobEffect>();
+            ArrayList<net.minecraft.server.v1_6_R2.MobEffect> nmsEffectsList = new ArrayList<net.minecraft.server.v1_6_R2.MobEffect>();
 
             List<List<Object>> effectsList = (List<List<Object>>)map.get("effects");
 
@@ -192,7 +192,7 @@ public class PotionsPlus extends JavaPlugin implements Listener {
                 int effectId = mobEffectNames.get(effectName);
 
                 // Apply effects
-                nmsEffectsList.add(new net.minecraft.server.MobEffect(effectId, duration, amplification)); 
+                nmsEffectsList.add(new net.minecraft.server.v1_6_R2.MobEffect(effectId, duration, amplification));
             }
 
             // Apply all effects to all damage values
@@ -209,9 +209,9 @@ public class PotionsPlus extends JavaPlugin implements Listener {
     HashMap<String,Integer> getMobEffectNames() {
         HashMap<String,Integer> map = new HashMap<String,Integer>();
 
-        for (int i = 0; i < net.minecraft.server.MobEffectList.byId.length; i += 1) {
-            if (net.minecraft.server.MobEffectList.byId[i] != null) {
-                String name = net.minecraft.server.MobEffectList.byId[i].c(); // returns I; = MCP getName()
+        for (int i = 0; i < net.minecraft.server.v1_6_R2.MobEffectList.byId.length; i += 1) {
+            if (net.minecraft.server.v1_6_R2.MobEffectList.byId[i] != null) {
+                String name = net.minecraft.server.v1_6_R2.MobEffectList.byId[i].a(); // returns I; = MCP getName() was originally c(); could be a or b but only testing will tell.
 
                 map.put(name, i);
                 //map.put(name.replace("potion.", ""), i);
@@ -259,10 +259,10 @@ public class PotionsPlus extends JavaPlugin implements Listener {
     */
     HashMap getEffectsCache() {
         try {
-            Field effectsCacheField = net.minecraft.server.ItemPotion.class.getDeclaredField("a");
+            Field effectsCacheField = net.minecraft.server.v1_6_R2.ItemPotion.class.getDeclaredField("a");
             effectsCacheField.setAccessible(true);
 
-            Object obj = effectsCacheField.get(net.minecraft.server.Item.POTION);
+            Object obj = effectsCacheField.get(net.minecraft.server.v1_6_R2.Item.POTION);
             if (obj instanceof HashMap) {
                 return (HashMap)obj;
             } else {
